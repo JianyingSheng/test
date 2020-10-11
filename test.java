@@ -1,4 +1,3 @@
-import java.util.Arrays;
 public class test {
     public static void main(String[] args) {
         int mSide = Integer.parseInt(args[0]);
@@ -10,9 +9,9 @@ public class test {
         for (int k = 0; k < Mines; k++) {
             int x = (int) (Math.random() * mSide) + 1;
             int y = (int) (Math.random() * nSide) + 1;
-            if (isMines[x][y]) {
-                Mines = Mines + 1;
-            } else {
+            //如果不是雷的话，就把它设置成雷，然后计数器+1
+            if (!isMines[x][y]) {
+                Mines += 1;
                 isMines[x][y] = true;
             }
         }
@@ -21,41 +20,33 @@ public class test {
             for (int j = 1; j <= nSide; j++) {
                 int counter = 0;
                 if (!isMines[i][j]) {
-                    if (isMines[i][j - 1]) {
-                        counter += 1;
-                    } else if (isMines[i][j + 1]) {
-                        counter += 1;
-                    } else if (isMines[i + 1][j]) {
-                        counter += 1;
-                    } else if (isMines[i - 1][j]) {
-                        counter += 1;
-                    } else if (isMines[i - 1][j - 1]) {
-                        counter += 1;
-                    } else if (isMines[i + 1][j + 1]) {
-                        counter += 1;
-                    } else if (isMines[i - 1][j + 1]) {
-                        counter += 1;
-                    } else if (isMines[i + 1][j - 1]) {
-                        counter += 1;
-                    }
+                    if (isMines[i][j - 1]) counter += 1;
+                    if (isMines[i][j + 1]) counter += 1;
+                    if (isMines[i + 1][j - 1]) counter += 1;
+                    if (isMines[i + 1][j]) counter += 1;
+                    if (isMines[i + 1][j + 1]) counter += 1;
+                    if (isMines[i - 1][j + 1]) counter += 1;
+                    if (isMines[i - 1][j]) counter += 1;
+                    if (isMines[i - 1][j - 1]) counter += 1;
+
                     numMines[i][j] = counter;
                 }
             }
         }
 
-            for (int i = 1; i <= mSide; i++) {
-                for (int j = 1; j <= nSide; j++) {
-                    if (!isMines[i][j]) {
-                        System.out.print(numMines[i][j] + "  ");
-                    }
-                    if (isMines[i][j]) {
-                        System.out.print("*  ");
-                    }
-
+        for (int i = 1; i <= mSide; i++) {
+            for (int j = 1; j <= nSide; j++) {
+                if (!isMines[i][j]) {
+                    System.out.print(numMines[i][j] + "  ");
                 }
-                System.out.println();
-            }
-        }
+                if (isMines[i][j]) {
+                    System.out.print("*  ");
+                }
 
+            }
+            System.out.println();
+        }
     }
+
+}
 
